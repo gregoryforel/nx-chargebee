@@ -1,9 +1,22 @@
-import styles from './app.module.less';
+import { ChargeBee } from 'chargebee-typescript';
 
+import styles from './app.module.less';
 import { ReactComponent as Logo } from './logo.svg';
 import star from './star.svg';
 
+const chargebee = new ChargeBee();
+chargebee.configure({
+  site: 'schedio-test',
+  api_key: '***',
+});
+
 export function App() {
+  chargebee.subscription
+    .retrieve('***')
+    .request((error: any, result: any) =>
+      console.log('chargebee', error, result)
+    );
+
   return (
     <div className={styles.app}>
       <header className="flex">
